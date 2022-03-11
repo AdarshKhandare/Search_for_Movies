@@ -20,14 +20,11 @@ localStorage.setItem("Mimages", JSON.stringify(imgObj));
 
 let images = JSON.parse(localStorage.getItem("Mimages")) || [];
 
-
-
 let id;
 let i = 0;
 
 console.log(images);
 
-        let container = document.getElementById("slideshow");
 
         // slideshow.innerHTML = null;
 
@@ -57,6 +54,233 @@ console.log(images);
 
             i++;
 
-        }, 2000);
+        }, 3000);
 
  // slideshow ends here
+
+
+//Movie Search Start here
+
+
+
+
+//  movie Object start here
+
+ let movieDataBase = [
+{moviename: "The Batman", releasedate: "5/2/2022", poster: "https://images.cinemaexpress.com/uploads/user/ckeditor_images/article/2022/1/26/WhatsApp_Image_2022-01-26_at_2.55_.29_PM_.jpeg?w=640&dpr=1.3", imdbrating: 8.5},
+{moviename: "Uncharted", releasedate: "26/1/2022", poster: "https://knox.villagesoup.com/uploads/sites/4/2022/02/Movie-Review_Uncharted.jpg", imdbrating: 6.7},
+{moviename: "Morbius", releasedate: "1/4/2022", poster: "https://i0.wp.com/bloody-disgusting.com/wp-content/uploads/2022/02/morbbb.png?ssl=1", imdbrating: 7.2},
+{moviename: "Fantastic Beasts: The Secrets of Dumbledore", releasedate: "15/4/22", poster: "https://m.media-amazon.com/images/M/MV5BOTNjNWRjZDUtYjU1OC00NGFmLWE2ZDktMzhhYmIwOTU4YjVmXkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_FMjpg_UX1000_.jpg", imdbrating: 8},
+{moviename: "Doctor Strange in the Multiverse of Madness", releasedate: "6/5/2022", poster: "https://m.media-amazon.com/images/M/MV5BZDg5ZDg2MWQtM2ExNi00ZjEzLTgzMDQtZmJlYWEwYmM4ODUxXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_.jpg", imdbrating: 9.5},
+{moviename: "The Adam Project", releasedate: "11/2/2022", poster: "https://upload.wikimedia.org/wikipedia/en/d/d7/The_Adam_Project_poster.png", imdbrating: "4.8"},
+{moviename: "Dog", releasedate: "18/2/2022", poster: "https://m.media-amazon.com/images/M/MV5BZDRiNDFmMGYtOWY3Ni00ZjUxLTkzZGYtODZiNmIxZGRiZTM4XkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_.jpg", imdbrating: 6.7},
+{moviename: "Gangubai Kathiawadi", releasedate: "25/2/2022", poster: "https://images.hindustantimes.com/img/2022/02/02/1600x900/Gangubai_1643785236716_1643785261330.jpeg", imdbrating: 7.0},
+{moviename: "Blacklight", releasedate: "11/2/2022", poster: "https://www.thefilmik.com/wp-content/uploads/2022/02/BlackLight-Movie-.webp", imdbrating: 4.8},
+]
+
+let container = document.querySelector("#container")
+localStorage.setItem("movies",JSON.stringify(movieDataBase))
+
+let Moviedata = JSON.parse(localStorage.getItem("movies")) || [];
+console.log(Moviedata)
+movieshow()
+function movieshow(){
+
+       container.innerHTML = null;
+
+        Moviedata.map(function(ele){
+
+        var divM = document.createElement("div");
+        divM.setAttribute("id", "divM")
+
+        var image = document.createElement("img");
+        image.src = ele.poster;
+        image.setAttribute("id", "moviePoster")
+        
+        var name = document.createElement("h4");
+        name.innerText = ele.moviename;
+
+        var rating = document.createElement("h4")
+        rating.innerText = "🌟" + " " +ele.imdbrating;
+
+        var rdate = document.createElement("p")
+        rdate.setAttribute("id", "date")
+        rdate.innerHTML = ele.releasedate;
+
+
+        var divI = document.createElement("div");
+        divI.setAttribute("id", "divI")
+
+        var divN = document.createElement("div");
+        var divc = document.createElement("div");
+        divc.setAttribute("id", "divc")
+            
+        divI.append(rating,rdate);
+        divN.append(name)
+        divc.append(divN,divI);
+
+        divM.append(image,divc);
+        // divM.append(divI,divN)
+
+        document.querySelector("#container").append(divM);
+    })
+
+}
+
+ async function showMovies(){
+    
+    try
+    {
+        let search = document.querySelector("#search").value;
+        let res = await fetch(`https://www.omdbapi.com/?s=${search}&apikey=b13cc049`)
+
+        let data = await res.json();
+        
+        console.log(data)
+        appendProducts(data)
+        
+    }
+    catch(error)
+    {
+        console.log("Movie not found!")
+
+    }
+   
+}
+
+function appendProducts(data) { 
+
+    container.innerHTML = null;
+    for(let i = 0; i < data.Search.length; i++)
+    {
+
+            let div = document.createElement("div");
+            div.setAttribute("id","divdata")
+
+            let div1 = document.createElement("div");
+            div1.setAttribute("id","div1")
+
+            let div2 = document.createElement("div");
+
+            let img = document.createElement("img");
+            img.src = data.Search[i].Poster
+
+            let title = document.createElement("h1");
+            title.textContent = data.Search[i].Title
+
+            let Released = document.createElement("p");
+            Released.innerText = "ReleaseYear:-"+" "+data.Search[i].Year
+
+            let imdbID = document.createElement("p")
+            imdbID.innerText = "imdbID:-"+" "+data.Search[i].imdbID
+
+            let Type = document.createElement("p");
+            Type.innerText = "Type:-"+" "+data.Search[i].Type
+
+            div2.append(img)
+
+            div1.append(title,Released,imdbID,Type);
+
+            div.append(div2,div1);
+
+           document.querySelector("#container").append(div);
+
+    }
+  
+}
+
+//Movie search End Here
+
+// movie search in searchbar start Here
+let movies = document.querySelector("#movie")
+
+let timerID;
+async function searchMovie()
+{ // Async alaways gives promise 
+   
+    try{
+        let input = document.querySelector(".search-box").value
+        // console.log(input) to check seach printing or not
+
+        let res = await fetch(`https://www.omdbapi.com/?s=${input}&apikey=b13cc049`);
+        let data = await res.json()
+        // console.log(data)
+        // appendMovie(data.Search) /// find key of data 
+        return data.Search;
+
+    }
+    catch(error){
+        console.log("Movie Not Found!")
+    }
+    
+}
+
+function appendMovie(data)
+{
+
+    movies.innerHTML = null;
+
+    if(data === undefined){ // get rid of undefined
+
+        return false;
+    }
+
+    data.forEach(function(ele){
+
+        let p = document.createElement("p")
+        p.innerText = ele.Title
+
+        let img = document.createElement("img")
+        img.src = ele.Poster
+
+        movies.append(img,p)
+    })
+}
+
+async function main()
+{
+
+    try
+    {
+        let data = await searchMovie();
+
+        if (data === undefined) { // get rid of undefined
+
+            return false;
+        }
+        console.log(data)
+
+        appendMovie(data)
+        
+    }
+
+    catch(error)
+    {
+        console.log("Movie is Not Found!")
+    }
+
+}
+
+function debounce(func,delay) 
+{
+
+    // timerID = 2 so first pahele ki gandagi khatam karo then 
+    // same as innerHTML = null 
+
+    if(timerID)
+    {
+        clearTimeout(timerID)
+    }
+
+
+    timerID = setTimeout(function()
+    {
+        console.log(timerID)
+
+            func()// still the main() function
+    }, delay);
+
+    // "a"=> debounce() => main() => seachMovies() => appendMovie()
+    //"av" =>
+
+}

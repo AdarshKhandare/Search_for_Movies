@@ -5,8 +5,9 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
+    <!-- Navbar Start -->
     <nav class="navbar">
-        <img src="images/logo.png" class="brand-logo" alt="">
+        <img src="https://secure-media.hotstarext.com/web-assets/prod/images/brand-logos/disney-hotstar-logo-dark.svg" class="brand-logo" alt="">
         <ul class="nav-links">
             <li class="nav-items"><a href="#">TV</a></li>
             <li class="nav-items"><a href="#">movies</a></li>
@@ -15,15 +16,70 @@
         </ul>
     
         <div class="right-container">
-            <input type="text" class="search-box" placeholder="search">
-            <button class="sub-btn">subscribe</button>
+            <input type="text" class="search-box" oninput="debounce(main,3000)" id="search" placeholder="search" >
+            
+            <button class="sub-btn" onclick="showMovies()">subscribe</button>
             <a href="#" class="login-link">login</a>
         </div>
+
     </nav>
+    <div id="movie"></div>
+<!-- Navbar End -->
+
+<!-- Slidshow Start -->
     <div id="slideshow">
-              
+               
     </div>
-    
+<!-- Slidshow End -->
+
+<!-- Banner start-->
+<div class="video-card-container">
+    <div class="video-card">
+        <img src="https://raw.githubusercontent.com/kunaal438/disney-plus-clone/master/images/disney.PNG" class="video-card-image" alt="">
+    </div>
+    <div class="video-card">
+        <img src="https://raw.githubusercontent.com/kunaal438/disney-plus-clone/master/images/pixar.PNG" class="video-card-image" alt="">
+    </div>
+    <div class="video-card">
+        <img src="https://raw.githubusercontent.com/kunaal438/disney-plus-clone/master/images/marvel.PNG" class="video-card-image" alt="">
+    </div>
+    <div class="video-card">
+        <img src="https://raw.githubusercontent.com/kunaal438/disney-plus-clone/master/images/star-wars.PNG" class="video-card-image" alt="">
+    </div>
+    <div class="video-card">
+        <img src="https://raw.githubusercontent.com/kunaal438/disney-plus-clone/master/images/geographic.PNG" class="video-card-image" alt="">
+    </div>
+</div>
+<!-- Banner End-->
+
+<!-- Search Results Start -->
+    <div id="container">
+        
+    </div>
+<!-- Search Results End -->
+
+<!-- footer start here -->
+
+<footer>
+    <div id="footerLeft">
+        <div id="about">
+            <div>About Disney+ Hotstar</div>
+            <div>Feedback</div>
+            <div>Privacy & Policy</div>
+            <div>FAQ</div>
+            <div>Careers</div>
+        </div>
+        <p>© 2022 STAR. All Rights Reserved. HBO, Home Box Office and all related channel and programming logos are service marks
+        of, and</p>
+        <p>all related programming visuals and elements are the property of, Home Box Office, Inc. All rights reserved.</p>
+
+    </div>
+    <div id="footerRight">
+        <div id="connect"></div>
+        <div id="app"></div>
+    </div>
+</footer>
+<!-- footer End here -->
 </body>
 </html>
 <script src="index.js">
