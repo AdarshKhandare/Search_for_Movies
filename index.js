@@ -196,6 +196,7 @@ function appendProducts(data) {
 let movies = document.querySelector("#movie")
 
 let timerID;
+
 async function searchMovie()
 { // Async alaways gives promise 
    
@@ -303,7 +304,7 @@ async function showSearchMovies(){
        try{
             // console.log(input) to check seach printing or not
             let input = document.querySelector("#search").value
-            let res = await fetch(`https://www.omdbapi.com/?s=${input}&apikey=b13cc049`);
+            let res = await fetch(`https://www.omdbapi.com/?s=${movies.ele}&apikey=b13cc049`);
             let data = await res.json()
             console.log(data)
             // appendMovie(data.Search) /// find key of data 
@@ -327,18 +328,17 @@ function showsearchMovies(data){
 
                 return false;
             }
-        // document.querySelector("#movie").addEventListener("click", function(){
-
-        data.reduce(function(ele)
+         
+        data.reduce(function showSearchMovies(data)
             {
             let p = document.createElement("p")
-            p.innerText = ele.Title
+            p.innerText = data.Search.Title
 
             let p2 = document.createElement("p")
-            p2.innerText = ele.Year
+            p2.innerText = data.Search.Year
 
             let img = document.createElement("img")
-            img.src = ele.Poster
+            img.src = data.Search.Poster
 
             let divR = document.createElement("div")
             let divL = document.createElement("div")
@@ -348,9 +348,5 @@ function showsearchMovies(data){
 
             document.querySelector("#container").append(divL,divR)
         })
-        // })
-
-    
-          
-
+     
 }         
