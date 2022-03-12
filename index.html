@@ -3,6 +3,7 @@
 <head>
     <title>SearchMovies</title>
     <link rel="stylesheet" href="index.css">
+    <script src="https://kit.fontawesome.com/d103d8b709.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <!-- Navbar Start -->
@@ -16,14 +17,14 @@
         </ul>
     
         <div class="right-container">
-            <input type="text" class="search-box" oninput="debounce(main,3000)" id="search" placeholder="search" >
+            <input type="text" class="search-box" oninput="debounce(main,3000)" id="search" placeholder="search">
             
-            <button class="sub-btn" onclick="showMovies()">subscribe</button>
+            <button onclick="showMovies()" class="sub-btn" >Search</button>
             <a href="#" class="login-link">login</a>
         </div>
 
     </nav>
-    <div id="movie"></div>
+    <div id="movie" onclick="showSearchMovies()"></div>
 <!-- Navbar End -->
 
 <!-- Slidshow Start -->
@@ -60,7 +61,7 @@
 
 <!-- footer start here -->
 
-<footer>
+<footer id="footer">
     <div id="footerLeft">
         <div id="about">
             <div>About Disney+ Hotstar</div>
@@ -75,8 +76,16 @@
 
     </div>
     <div id="footerRight">
-        <div id="connect"></div>
-        <div id="app"></div>
+        <div id="connect">
+           <p>Connect with Us</p> 
+            <i class="fa-brands fa-twitter"></i>
+            <i class="fa-brands fa-facebook-f"></i>
+        </div>
+        <div id="app">
+            <p>Disney+ Hotstar app</p> 
+            <i class="fa-brands fa-google-play"></i>
+            <i class="fa-brands fa-app-store-ios"></i>
+        </div>
     </div>
 </footer>
 <!-- footer End here -->

@@ -139,6 +139,7 @@ function movieshow(){
         console.log(data)
         appendProducts(data)
         
+        
     }
     catch(error)
     {
@@ -199,7 +200,7 @@ async function searchMovie()
 { // Async alaways gives promise 
    
     try{
-        let input = document.querySelector(".search-box").value
+        let input = document.querySelector("#search").value
         // console.log(input) to check seach printing or not
 
         let res = await fetch(`https://www.omdbapi.com/?s=${input}&apikey=b13cc049`);
@@ -230,10 +231,20 @@ function appendMovie(data)
         let p = document.createElement("p")
         p.innerText = ele.Title
 
+        let p2 = document.createElement("p")
+        p2.innerText = ele.Year
+
         let img = document.createElement("img")
         img.src = ele.Poster
 
-        movies.append(img,p)
+        let divR = document.createElement("div")
+        let divL = document.createElement("div")
+
+        divL.append(img)
+        divR.append(p,p2)
+
+        movies.append(divL,divR)
+
     })
 }
 
@@ -251,7 +262,6 @@ async function main()
         console.log(data)
 
         appendMovie(data)
-        
     }
 
     catch(error)
@@ -284,3 +294,63 @@ function debounce(func,delay)
     //"av" =>
 
 }
+
+
+
+async function showSearchMovies(){
+
+   container.innerHTML = null;
+       try{
+            // console.log(input) to check seach printing or not
+            let input = document.querySelector("#search").value
+            let res = await fetch(`https://www.omdbapi.com/?s=${input}&apikey=b13cc049`);
+            let data = await res.json()
+            console.log(data)
+            // appendMovie(data.Search) /// find key of data 
+           showsearchMovies(data.Search)
+
+        }
+        catch(error)
+        {
+            console.log("Movie Not Found!")
+        }
+    
+}
+
+
+
+function showsearchMovies(data){
+
+     document.querySelector("#container").innerHTML = null;
+
+            if(data === undefined){ // get rid of undefined
+
+                return false;
+            }
+        // document.querySelector("#movie").addEventListener("click", function(){
+
+        data.reduce(function(ele)
+            {
+            let p = document.createElement("p")
+            p.innerText = ele.Title
+
+            let p2 = document.createElement("p")
+            p2.innerText = ele.Year
+
+            let img = document.createElement("img")
+            img.src = ele.Poster
+
+            let divR = document.createElement("div")
+            let divL = document.createElement("div")
+
+            divL.append(img)
+            divR.append(p,p2)
+
+            document.querySelector("#container").append(divL,divR)
+        })
+        // })
+
+    
+          
+
+}         
